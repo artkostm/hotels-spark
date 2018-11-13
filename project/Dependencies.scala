@@ -7,6 +7,7 @@ object Dependencies {
     val scalaTest  = "3.0.5"
     val scalaCheck = "1.14.0"
     val scalaMock  = "4.1.0"
+    val dockerTestkit = "0.9.8"
   }
 
   lazy val main = Seq(
@@ -17,6 +18,8 @@ object Dependencies {
   lazy val test = Seq(
     "org.scalatest"  %% "scalatest"  % versions.scalaTest,
     "org.scalacheck" %% "scalacheck" % versions.scalaCheck,
-    "org.scalamock"  %% "scalamock"  % versions.scalaMock
+    "org.scalamock"  %% "scalamock"  % versions.scalaMock,
+    "com.whisk" %% "docker-testkit-scalatest" % versions.dockerTestkit,
+    "com.whisk" %% "docker-testkit-impl-spotify" % versions.dockerTestkit
   ).map(_ % Test)
 }
