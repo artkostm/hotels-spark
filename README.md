@@ -1,9 +1,12 @@
+First of all download train.csv: https://www.kaggle.com/c/expedia-hotel-recommendations/data
+
 ## Task 1
 
 ### Find top 3 most popular hotels between couples. (treat hotel as composite key of continent, country and market).
 
 Result:
 
+```shell
 +---------------+-------------+------------+-------+
 |hotel_continent|hotel_country|hotel_market|    cnt|
 +---------------+-------------+------------+-------+
@@ -11,6 +14,7 @@ Result:
 |              2|           50|         675|1007502|
 |              4|            8|         110| 588213|
 +---------------+-------------+------------+-------+
+```
 
 ## Task2
 
@@ -18,11 +22,13 @@ Result:
 
 Result:
 
+```shell
 +-------------+-----+
 |hotel_country|count|
 +-------------+-----+
 |           68| 1619|
 +-------------+-----+
+```
 
 ## Task3
 
@@ -30,6 +36,7 @@ Result:
 
 Result:
 
+```shell
 +---------------+-------------+------------+------+
 |hotel_continent|hotel_country|hotel_market|   cnt|
 +---------------+-------------+------------+------+
@@ -37,3 +44,8 @@ Result:
 |              2|           50|         675|294833|
 |              2|           50|         628|218325|
 +---------------+-------------+------------+------+
+```
+
+Spark Jobs:
+
+![Spark Jobs](./img/hotels-spark.png "Spark Jobs")
