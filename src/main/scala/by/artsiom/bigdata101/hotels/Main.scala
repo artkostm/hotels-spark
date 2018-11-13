@@ -21,7 +21,5 @@ object Main extends App with Homework {
 
   task3.show()
 
-  Thread.sleep(100000)
-
   spark.stop()
 }
