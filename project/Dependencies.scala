@@ -2,7 +2,9 @@ import sbt._
 
 object Dependencies {
   val versions = new {
-    val spark = "2.3.2"
+    val spark   = "2.3.2"
+    val guava   = "20.0"
+    val jackson = "2.9.4"
 
     val scalaTest     = "3.0.5"
     val scalaCheck    = "1.14.0"
@@ -24,6 +26,10 @@ object Dependencies {
   ).map(_ % Test)
 
   lazy val overrides = Seq(
-    "com.google.guava" % "guava" % "20.0"
+    "com.google.guava"             % "guava"                 % versions.guava,
+    "com.fasterxml.jackson.core"   % "jackson-core"          % versions.jackson,
+    "com.fasterxml.jackson.core"   % "jackson-databind"      % versions.jackson,
+    "com.fasterxml.jackson.core"   % "jackson-annotations"   % versions.jackson,
+    "com.fasterxml.jackson.module" %% "jackson-module-scala" % versions.jackson
   )
 }
