@@ -4,6 +4,8 @@ import org.apache.spark.sql.SparkSession
 import org.scalatest.{BeforeAndAfterAll, FlatSpec, Matchers}
 
 class HomeworkSpec extends FlatSpec with BeforeAndAfterAll with Matchers with Homework {
+  import Columns._
+
   var spark: SparkSession = _
 
   override def beforeAll() =
@@ -39,10 +41,10 @@ class HomeworkSpec extends FlatSpec with BeforeAndAfterAll with Matchers with Ho
     (0 until expectedResult.size) foreach { i =>
       val row = result1(i)
       val expectedRow = expectedResult(i)
-      assert(row.getAs[Int](0) == expectedRow(0))
-      assert(row.getAs[Int](1) == expectedRow(1))
-      assert(row.getAs[Int](2) == expectedRow(2))
-      assert(row.getAs[Long](3) == expectedRow(3))
+      assert(row.getAs[Int](HotelContinent) == expectedRow(0))
+      assert(row.getAs[Int](HotelCountry) == expectedRow(1))
+      assert(row.getAs[Int](HotelMarket) == expectedRow(2))
+      assert(row.getAs[Long](Count) == expectedRow(3))
     }
   }
 
@@ -64,8 +66,8 @@ class HomeworkSpec extends FlatSpec with BeforeAndAfterAll with Matchers with Ho
 
     assert(result2.size == 1)
     result2.foreach { row =>
-      assert(row.getAs[Int](0) == 66)
-      assert(row.getAs[Long](1) == 1)
+      assert(row.getAs[Int](HotelCountry) == 66)
+      assert(row.getAs[Long](Count) == 1)
     }
   }
 
@@ -87,10 +89,10 @@ class HomeworkSpec extends FlatSpec with BeforeAndAfterAll with Matchers with Ho
 
     assert(result3.size == 1)
     result3.foreach { row =>
-      assert(row.getAs[Int](0) == 6)
-      assert(row.getAs[Int](1) == 204)
-      assert(row.getAs[Int](2) == 1776)
-      assert(row.getAs[Long](3) == 4)
+      assert(row.getAs[Int](HotelContinent) == 6)
+      assert(row.getAs[Int](HotelCountry) == 204)
+      assert(row.getAs[Int](HotelMarket) == 1776)
+      assert(row.getAs[Long](Count) == 4)
     }
   }
 
