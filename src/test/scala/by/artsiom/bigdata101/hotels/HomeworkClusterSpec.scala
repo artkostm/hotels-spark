@@ -2,12 +2,13 @@ package by.artsiom.bigdata101.hotels
 
 import java.net.URI
 
+import by.artsiom.bigdata101.hotels.cluster.DockerSparkService
 import com.whisk.docker.impl.spotify.DockerKitSpotify
 import org.apache.spark.sql.SparkSession
 import org.scalatest.{FlatSpec, Matchers}
 import org.scalatest.time.{Second, Seconds, Span}
 
-class HomeworkSpec extends FlatSpec with Matchers with DockerKitSpotify with DockerSparkService {
+class HomeworkClusterSpec extends FlatSpec with Matchers with DockerKitSpotify with DockerSparkService {
   implicit val pc = PatienceConfig(Span(20, Seconds), Span(1, Second))
 
   "spark cluster" should "be ready for job submitting" in {
