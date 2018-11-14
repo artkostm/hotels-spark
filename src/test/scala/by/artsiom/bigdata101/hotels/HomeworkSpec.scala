@@ -18,6 +18,7 @@ class HomeworkSpec extends FlatSpec with Matchers with DockerKitSpotify with Doc
   "all tasks" should "return correct result" in {
     val spark = SparkSession.builder
       .master(s"spark://${new URI(sys.env("DOCKER_HOST")).getHost}:7077")
+      .config("spark.submit.deployMode", "client")
       .appName("hotels")
       .getOrCreate()
 
@@ -28,12 +29,37 @@ class HomeworkSpec extends FlatSpec with Matchers with DockerKitSpotify with Doc
 
     val homework = new Homework {}
 
+    /**
+      * +---------------+-------------+------------+-----+
+      * |hotel_continent|hotel_country|hotel_market|count|
+      * +---------------+-------------+------------+-----+
+      * |              6|          105|          29|   42|
+      * |              3|          151|          69|   37|
+      * |              2|           50|         675|   12|
+      * +---------------+-------------+------------+-----+
+      */
     val result1 = homework.task1.collect()
+
+    /**
+      * +-------------+-----+
+      * |hotel_country|count|
+      * +-------------+-----+
+      * |           66|    1|
+      * +-------------+-----+
+      */
     val result2 = homework.task2.collect()
+
+    /**
+      * +---------------+-------------+------------+-----+
+      * |hotel_continent|hotel_country|hotel_market|count|
+      * +---------------+-------------+------------+-----+
+      * |              6|          204|        1776|    4|
+      * +---------------+-------------+------------+-----+
+      */
     val result3 = homework.task3.collect()
 
     assert(result1.size == 3)
     assert(result2.size == 1)
-    assert(result3.size == 3)
+    assert(result3.size == 1)
   }
 }
