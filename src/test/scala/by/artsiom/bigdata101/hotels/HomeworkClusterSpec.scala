@@ -26,7 +26,7 @@ class HomeworkClusterSpec extends FlatSpec with Matchers with DockerKitSpotify w
     implicit val test = spark.read
       .option("header", "true")
       .option("inferSchema", "true")
-      .csv("src/test/resources/test.csv")
+      .csv("src/test/resources/data/test.csv")
 
     val homework = new Homework {}
 

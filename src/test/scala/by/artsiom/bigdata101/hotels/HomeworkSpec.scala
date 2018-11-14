@@ -19,7 +19,7 @@ class HomeworkSpec extends FlatSpec with BeforeAndAfterAll with Matchers with Ho
     implicit val testData = spark.read
       .option("header", "true")
       .option("inferSchema", "true")
-      .csv("src/test/resources/test.csv")
+      .csv("src/test/resources/data/test.csv")
 
     /**
       * +---------------+-------------+------------+-----+
@@ -53,7 +53,7 @@ class HomeworkSpec extends FlatSpec with BeforeAndAfterAll with Matchers with Ho
     implicit val testData = spark.read
       .option("header", "true")
       .option("inferSchema", "true")
-      .csv("src/test/resources/test.csv")
+      .csv("src/test/resources/data/test.csv")
 
     /**
       * +-------------+-----+
@@ -76,7 +76,7 @@ class HomeworkSpec extends FlatSpec with BeforeAndAfterAll with Matchers with Ho
     implicit val testData = spark.read
       .option("header", "true")
       .option("inferSchema", "true")
-      .csv("src/test/resources/test.csv")
+      .csv("src/test/resources/data/test.csv")
 
     /**
       * +---------------+-------------+------------+-----+

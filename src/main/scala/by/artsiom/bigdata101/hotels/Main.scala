@@ -12,10 +12,15 @@ object Main extends App with Homework {
   implicit val test = spark.read
     .option("header", "true")
     .schema(FileSchema)
-    .csv("src/test/resources/test.csv")
+    .csv("src/test/resources/data/test.csv")
 
-  task3.show()
-  task3.show()
+  println("Task #1: ")
+  task1.show()
+
+  println("Task #2: ")
+  task2.show()
+
+  println("Task #3: ")
   task3.show()
 
   spark.stop()
