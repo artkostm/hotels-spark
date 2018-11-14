@@ -15,7 +15,7 @@ object Main extends App with Homework {
     .option("header", "true")
     .option("inferSchema", "true")
     //.schema(schema)
-    .csv("src/test/resources/test.csv")//D:\homework\Hadoop.Intro\train.csv
+    .csv("src/test/resources/test.csv") //D:\homework\Hadoop.Intro\train.csv
 
   task1.explain(true)
 
