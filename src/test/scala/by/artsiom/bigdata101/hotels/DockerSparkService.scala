@@ -3,7 +3,7 @@ package by.artsiom.bigdata101.hotels
 import java.net.URI
 
 import com.whisk.docker.scalatest.DockerTestKit
-import com.whisk.docker.{ContainerLink, DockerContainer, DockerKit, DockerReadyChecker}
+import com.whisk.docker.{ContainerLink, DockerContainer, DockerReadyChecker}
 import org.scalatest.Suite
 
 import scala.concurrent.duration
@@ -14,6 +14,7 @@ import scala.concurrent.duration.FiniteDuration
   */
 trait DockerSparkService extends DockerTestKit  { self: Suite =>
 
+  // this is for cases when the docker is running on Windows using VirtualBox
   val host = new URI(sys.env("DOCKER_HOST")).getHost
 
   val master = DockerContainer(image = "bde2020/spark-master:2.3.2-hadoop2.7", name = Some("spark-master"))
@@ -29,7 +30,7 @@ trait DockerSparkService extends DockerTestKit  { self: Suite =>
     .withLinks(ContainerLink(master, "spark-master"))
 
   val worker2 = DockerContainer(image = "bde2020/spark-worker:2.3.2-hadoop2.7", name = Some("spark-worker2"))
-    .withPorts(8081 -> Some(8081))
+    .withPorts(8082 -> Some(8082))
     .withEnv(s"SPARK_MASTER=spark://$host:7077")
     .withLinks(ContainerLink(master, "spark-master"))
 
