@@ -1,7 +1,7 @@
 package by.artsiom.bigdata101.hotels
 
 import org.apache.spark.sql.DataFrame
-import org.apache.spark.sql.functions.col
+import org.apache.spark.sql.functions._
 
 trait Homework {
   import Columns._
@@ -23,7 +23,7 @@ trait Homework {
     df.where(s"$IsBooking = 1 AND $UserCountry = $HotelCountry")
       .groupBy(col(HotelCountry))
       .count()
-      .orderBy(col(Count).desc)
+      .sort(desc(Count))
       .limit(1)
 
   /**
@@ -42,6 +42,6 @@ trait Homework {
         col(HotelMarket)
       )
       .count()
-      .orderBy(col(Count).desc)
+      .sort(desc(Count))
       .limit(top)
 }
