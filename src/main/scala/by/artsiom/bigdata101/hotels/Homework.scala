@@ -1,6 +1,6 @@
 package by.artsiom.bigdata101.hotels
 
-import org.apache.spark.sql.DataFrame
+import org.apache.spark.sql.{Column, DataFrame}
 import org.apache.spark.sql.functions._
 
 trait Homework {
@@ -12,7 +12,7 @@ trait Homework {
     * @return DataFrame, schema: [hotel_continent: int, hotel_country: int, hotel_market: int, count: long]
     */
   def task1(implicit df: DataFrame): DataFrame =
-    popularHotels(df, s"$AdultsCount = 2", 3)
+    popularHotels(df, col(AdultsCount) === 2, 3)
 
   /**
     * Find the most popular country where hotels are booked and searched from the same country.
@@ -20,7 +20,7 @@ trait Homework {
     * @return DataFrame, schema: [hotel_country: int, count: long]
     */
   def task2(implicit df: DataFrame): DataFrame =
-    df.where(s"$IsBooking = 1 AND $UserCountry = $HotelCountry")
+    df.where(col(IsBooking) === 1 && col(UserCountry) === col(HotelCountry))
       .groupBy(col(HotelCountry))
       .count()
       .sort(desc(Count))
@@ -32,9 +32,9 @@ trait Homework {
     * @return DataFrame, schema: [hotel_continent: int, hotel_country: int, hotel_market: int, count: long]
     */
   def task3(implicit df: DataFrame): DataFrame =
-    popularHotels(df, s"$ChildrenCount > 0 AND $IsBooking = 0", 3)
+    popularHotels(df, col(ChildrenCount) > 0 && col(IsBooking) === 0, 3)
 
-  private def popularHotels(df: DataFrame, conditionExpr: String, top: Int): DataFrame =
+  private def popularHotels(df: DataFrame, conditionExpr: Column, top: Int): DataFrame =
     df.where(conditionExpr)
       .groupBy(
         col(HotelContinent),
