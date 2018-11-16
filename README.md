@@ -1,5 +1,13 @@
 First of all download train.csv: https://www.kaggle.com/c/expedia-hotel-recommendations/data
 
+Then build a jar file with ```sbt assembly```
+
+To submit the app to Spark use the following command:
+
+```
+spark-submit --class by.artsiom.bigdata101.hotels.Main --master local[*] hotels-spark.jar /path/to/train.csv
+```
+
 ## Task 1
 
 ### Find top 3 most popular hotels between couples. (treat hotel as composite key of continent, country and market).

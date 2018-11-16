@@ -27,7 +27,6 @@ object Main extends App with Homework {
       spark.stop()
     }
     case _ =>
-      error("Usage: spark-submit --class Main --master <master> your-jar.jar <file>")
-      //~> spark-submit --class by.artsiom.bigdata101.hotels.Main --master local[*] hotels-spark.jar ~/Hadoop/train.csv
+      error("Usage: spark-submit --class Main --master <master> hotels-spark.jar <file>")
   }
 }
