@@ -13,8 +13,8 @@ object Dependencies {
   }
 
   lazy val main = Seq(
-    "org.apache.spark" %% "spark-core" % versions.spark,
-    "org.apache.spark" %% "spark-sql"  % versions.spark
+    "org.apache.spark" %% "spark-core" % versions.spark % Provided,
+    "org.apache.spark" %% "spark-sql"  % versions.spark % Provided
   )
 
   lazy val test = Seq(
