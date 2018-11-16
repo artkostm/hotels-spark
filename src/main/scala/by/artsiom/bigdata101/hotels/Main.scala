@@ -4,24 +4,30 @@ import org.apache.spark.sql.SparkSession
 
 object Main extends App with Homework {
 
-  val spark = SparkSession.builder
-    .master("local[*]")
-    .appName("hotels")
-    .getOrCreate()
+  args match {
+    case Array(filePath) => {
+      val spark = SparkSession.builder
+        .appName("hotels")
+        .getOrCreate()
 
-  implicit val test = spark.read
-    .option("header", "true")
-    .schema(FileSchema)
-    .csv("src/test/resources/data/test.csv")
+      implicit val test = spark.read
+        .option("header", "true")
+        .schema(FileSchema)
+        .csv(filePath)
 
-  println("Task #1: ")
-  task1.show()
+      println("Task #1: ")
+      task1.show()
 
-  println("Task #2: ")
-  task2.show()
+      println("Task #2: ")
+      task2.show()
 
-  println("Task #3: ")
-  task3.show()
+      println("Task #3: ")
+      task3.show()
 
-  spark.stop()
+      spark.stop()
+    }
+    case _ =>
+      error("Usage: spark-submit --class Main --master <master> your-jar.jar <file>")
+      //~> spark-submit --class by.artsiom.bigdata101.hotels.Main --master local[*] hotels-spark.jar ~/Hadoop/train.csv
+  }
 }
