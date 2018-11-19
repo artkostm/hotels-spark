@@ -2,14 +2,22 @@ package by.artsiom.bigdata101.hotels
 
 import java.net.URI
 
-import by.artsiom.bigdata101.hotels.cluster.DockerSparkService
-import com.whisk.docker.impl.spotify.DockerKitSpotify
+import by.artsiom.bigdata101.hotels.cluster.{DockerKitSpotify, DockerSparkService}
 import org.apache.spark.sql.SparkSession
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.{FlatSpec, Ignore, Matchers}
 import org.scalatest.time.{Second, Seconds, Span}
 
+import scala.concurrent.duration._
+
+@Ignore
 class HomeworkClusterSpec extends FlatSpec with Matchers with DockerKitSpotify with DockerSparkService {
-  implicit val pc = PatienceConfig(Span(20, Seconds), Span(1, Second))
+  implicit val pc = PatienceConfig(Span(30, Seconds), Span(1, Second))
+
+  override val PullImagesTimeout      = 120 minutes
+  override val StartContainersTimeout = 120 seconds
+  override val StopContainersTimeout  = 100 seconds
+
+  override val dockerHost = Option(new URI(sys.env("DOCKER_HOST")).getHost)
 
   "spark cluster" should "be ready for job submitting" in {
     dockerContainers.map(_.name).foreach(println)
@@ -17,10 +25,12 @@ class HomeworkClusterSpec extends FlatSpec with Matchers with DockerKitSpotify w
   }
 
   "all tasks" should "return correct result" in {
+
     val spark = SparkSession.builder
-      .master(s"spark://${new URI(sys.env("DOCKER_HOST")).getHost}:7077")
-      .config("spark.submit.deployMode", "client")
-      .appName("hotels")
+      .master(s"spark://${dockerHost.getOrElse(DockerSparkService.AllLocal)}:7077")
+      .config("spark.submit.deployMode", "cluster")
+      .config("spark.network.timeout", "300")
+      .appName("hotels-test")
       .getOrCreate()
 
     implicit val test = spark.read
