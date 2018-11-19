@@ -16,8 +16,8 @@ mainClass in assembly := Some("by.artsiom.bigdata101.hotels.Main")
 assemblyJarName in assembly := "hotels-spark.jar"
 
 assemblyMergeStrategy in assembly := {
-  case PathList("META-INF", _ @ _*) => MergeStrategy.discard
-  case _                            => MergeStrategy.first
+  case PathList("META-INF", _ @_*) => MergeStrategy.discard
+  case _                           => MergeStrategy.first
 }
 
 assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false)
